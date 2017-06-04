@@ -15,9 +15,3 @@ plt.subplot(224)
 plt.imshow(X_train[3], cmap=plt.get_cmap('gray'))
 # show the plot
 plt.show()
-<<<<<<< HEAD
-=======
-
-
-
->>>>>>> 3ee465c7950719d07e06c5b32e3883897c776636
