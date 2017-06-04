@@ -1,3 +1,4 @@
+#!/usr/bin/python3
 import os
 os.environ['TF_CPP_MIN_LOG_LEVEL']='2'
 import numpy
@@ -84,12 +85,17 @@ if input("Wanna test model? y/n ") =='y':
     scores = model.evaluate(X_test, y_test, verbose=1)
     print("Baseline Error: %.2f%%" % (100-scores[1]*100))
 
+
     
 #space for insertion of numpy array from user:
+if input("Wanna input some stuff? y/n ")=='y':
+
+    
+
+    
+    x_to_predict = numpy.reshape(X_test[4], (1,784))
+    predicted = model.predict(x_to_predict,batch_size=1,verbose=1)
+    print("Predicted: ", numpy.argmax(predicted))
 
 
-x_to_predict = numpy.reshape(X_test[4], (1,784))
 
-
-predicted = model.predict(x_to_predict,batch_size=1,verbose=1)
-print("Predicted: ", numpy.argmax(predicted))
