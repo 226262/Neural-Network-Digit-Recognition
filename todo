@@ -7,6 +7,10 @@ Bardziej na obróbce się skupić i back propagation
  Działanie NN Z zapisywaniem wag do pliku 
  Zczytywanie z palca i do sieci
  Obróbka uczenia się i back propagacja (wykresy)
+<<<<<<< HEAD
  Zbadać od ilości warstw
 
 
+=======
+ Zbadać od ilości warstw
+>>>>>>> 7fae36e7f1523921d214e60be0a72c249646d65c
