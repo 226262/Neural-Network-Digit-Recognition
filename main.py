@@ -11,8 +11,6 @@ from keras.models import model_from_json
 import matplotlib.pyplot as plt
 import pygame, random
 
-def scale(array)
-
 
 # fix random seed for reproducibility
 seed = 7
@@ -84,8 +82,15 @@ else :
 # Fit the model
 # Final evaluation of the model
 if input("Wanna test model? y/n ") =='y':
-    width = 30
-    height = 30
+
+    scores = model.evaluate(X_test, y_test, verbose=0)
+    print("Baseline Error: %.2f%%" % (100-scores[1]*100))    
+
+#space for insertion of numpy array from user:
+if input("Wanna input some stuff? y/n ")=='y':
+
+    width = 300
+    height = 300
     screen = pygame.display.set_mode((width,height))
     array=numpy.full((28,28),0)
     draw_on = False
@@ -129,20 +134,7 @@ if input("Wanna test model? y/n ") =='y':
     pygame.quit()
     print(array)
     
-
-
-    scores = model.evaluate(X_test, y_test, verbose=1)
-    print("Baseline Error: %.2f%%" % (100-scores[1]*100))
-
-
-    
-#space for insertion of numpy array from user:
-if input("Wanna input some stuff? y/n ")=='y':
-
-    
-
-    
-    x_to_predict = numpy.reshape(X_test[4], (1,784))
+    x_to_predict = numpy.reshape(array, (1,784))
     predicted = model.predict(x_to_predict,batch_size=1,verbose=1)
     print("Predicted: ", numpy.argmax(predicted))
 
