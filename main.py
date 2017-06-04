@@ -6,6 +6,7 @@ from keras.models import Sequential
 from keras.layers import Dense
 from keras.layers import Dropout
 from keras.utils import np_utils
+from keras.models import model_from_json
 import matplotlib.pyplot as plt
 
 
@@ -45,15 +46,45 @@ def baseline_model():
     return model
 
 # build the model
+
 model = baseline_model()
 
+if input("Wanna train model? y/n ")=='y':
+    
+    model.fit(X_train, y_train, validation_data=(X_test, y_test), epochs=1, batch_size=200, verbose=1)
+    
+    if input("Wanna save model? y/n ") =='y' :
+        model_json = model.to_json()
+        with open("model.json", "w") as json_file:
+            json_file.write(model_json)
+            # serialize weights to HDF5
+        model.save_weights("model.h5")
+        print("Saved model to disk")        
 
+elif input("Wanna load from file? y/n ")=='y' :
+    # load json and create model
+    json_file = open('model.json', 'r')
+    loaded_model_json = json_file.read()
+    json_file.close()
+    loaded_model = model_from_json(loaded_model_json)
+    # load weights into new model
+    loaded_model.load_weights("model.h5")
+    loaded_model.compile(loss='categorical_crossentropy', optimizer='adagrad', metrics=['accuracy'])
+    model=loaded_model
+    print("Loaded model from disk")
+else :
+    print("Exit")
+    exit()  
+    
+    
 # Fit the model
-model.fit(X_train, y_train, validation_data=(X_test, y_test), epochs=1, batch_size=200, verbose=1)
 # Final evaluation of the model
-scores = model.evaluate(X_test, y_test, verbose=1)
-print("Baseline Error: %.2f%%" % (100-scores[1]*100))
+if input("Wanna test model? y/n ") =='y':
+    
+    scores = model.evaluate(X_test, y_test, verbose=1)
+    print("Baseline Error: %.2f%%" % (100-scores[1]*100))
 
+    
 #space for insertion of numpy array from user:
 
 

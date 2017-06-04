@@ -1,3 +1,4 @@
+
 # Plot ad hoc mnist instances
 from keras.datasets import mnist
 import matplotlib.pyplot as plt
