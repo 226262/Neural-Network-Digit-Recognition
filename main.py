@@ -10,9 +10,6 @@ from keras.models import model_from_json
 import matplotlib.pyplot as plt
 import pygame, random
 
-def scale(array)
-
-
 # fix random seed for reproducibility
 seed = 7
 numpy.random.seed(seed)
