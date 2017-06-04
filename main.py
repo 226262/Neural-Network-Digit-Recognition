@@ -8,6 +8,9 @@ from keras.layers import Dropout
 from keras.utils import np_utils
 from keras.models import model_from_json
 import matplotlib.pyplot as plt
+import pygame, random
+
+def scale(array)
 
 
 # fix random seed for reproducibility
@@ -80,7 +83,53 @@ else :
 # Fit the model
 # Final evaluation of the model
 if input("Wanna test model? y/n ") =='y':
+    width = 30
+    height = 30
+    screen = pygame.display.set_mode((width,height))
+    array=numpy.full((28,28),0)
+    draw_on = False
+    last_pos = (0, 0)
+    color = (255, 255, 255)
+    radius = 0
+
+    def roundline(srf, color, start, end, radius=1):
+        dx = end[0]-start[0]
+        dy = end[1]-start[1]
+        distance = max(abs(dx), abs(dy))
+        for i in range(distance):
+            x = int( start[0]+float(i)/distance*dx)
+            y = int( start[1]+float(i)/distance*dy)
+            array[int((y*28)/width)][int((x*28)/height)]=1
+            pygame.draw.circle(srf, color, (x, y), radius)
+
+            
+
+    try:
+        while True:
+            e = pygame.event.wait()
+            if e.type == pygame.QUIT:
+                raise StopIteration
+            if e.type == pygame.MOUSEBUTTONDOWN:
+                # color = (255, 255, 255)
+                # pygame.draw.circle(screen, color, e.pos, radius)
+                draw_on = True
+            if e.type == pygame.MOUSEBUTTONUP:
+                draw_on = False
+            if e.type == pygame.MOUSEMOTION:
+                if draw_on:
+                    pygame.draw.circle(screen, color, e.pos, radius)
+                    roundline(screen, color, e.pos, last_pos,  radius)
+                last_pos = e.pos
+            pygame.display.flip()
+
+    except StopIteration:
+        pass
+
+    pygame.quit()
+    print(array)
     
+
+
     scores = model.evaluate(X_test, y_test, verbose=1)
     print("Baseline Error: %.2f%%" % (100-scores[1]*100))
 
