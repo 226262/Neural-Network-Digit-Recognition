@@ -35,10 +35,20 @@ y_train = np_utils.to_categorical(y_train)
 y_test = np_utils.to_categorical(y_test)
 num_classes = y_test.shape[1]
 
-
-
-        
-
+#writing a circle of pixels to the array according to middle coordinates of mouse position
+def write_rad(x,y,radius):
+    global array
+    if radius>0:
+        j=0
+        for x in range(x-radius,x+radius+1):
+            if j<=radius:
+                array[x][y+j]=1
+                array[x][y-j]=1
+                j=j+1
+            if j>radius:
+                j=j-1
+                array[x][y+j]
+        write_rad(x,y,radius-1)
 
 # define baseline model
 def baseline_model():
@@ -126,11 +136,7 @@ if input("Wanna input some stuff? y/n ")=='y':
                 yMin=y
             if y>yMax:
                 yMax=y
-            array[y-1][x]=1
-            array[y+1][x]=1
-            array[y][x-1]=1
-            array[y][x+1]=1    
-            array[y][x]=1
+            write_rad(y,x,4)
             pygame.draw.circle(srf, color, (x, y), radius)
 
     def cut_and_scale_down(yMin,yMax,xMin,xMax):
