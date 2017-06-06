@@ -11,17 +11,13 @@ from keras.models import model_from_json
 import matplotlib.pyplot as plt
 import pygame, random
 
-<<<<<<< HEAD
-=======
-
->>>>>>> a83670ca5a404e92646a303a029a0fb1a4d027f7
 # fix random seed for reproducibility
 seed = 7
 numpy.random.seed(seed)
 
 # load data
 (X_train, y_train), (X_test, y_test) = mnist.load_data()
-
+    
 #plt.imshow(X_test[4], cmap=plt.get_cmap('gray'))
 #plt.show()
 
@@ -38,6 +34,11 @@ X_test = X_test / 255
 y_train = np_utils.to_categorical(y_train)
 y_test = np_utils.to_categorical(y_test)
 num_classes = y_test.shape[1]
+
+
+
+        
+
 
 # define baseline model
 def baseline_model():
@@ -56,7 +57,7 @@ model = baseline_model()
 
 if input("Wanna train model? y/n ")=='y':
     
-    model.fit(X_train, y_train, validation_data=(X_test, y_test), epochs=1, batch_size=200, verbose=1)
+    model.fit(X_train, y_train, validation_data=(X_test, y_test), epochs=4, batch_size=200, verbose=1)
     
     if input("Wanna save model? y/n ") =='y' :
         model_json = model.to_json()
@@ -95,21 +96,62 @@ if input("Wanna input some stuff? y/n ")=='y':
     width = 300
     height = 300
     screen = pygame.display.set_mode((width,height))
-    array=numpy.full((28,28),0)
+    xMin=width
+    xMax=0
+    yMin=height
+    yMax=0
+    array=numpy.full((width,height),0)
     draw_on = False
     last_pos = (0, 0)
     color = (255, 255, 255)
-    radius = 0
+    radius = 3
+    edge=0
+    isAnythingDrew = False
 
     def roundline(srf, color, start, end, radius=1):
+        global isAnythingDrew
+        isAnythingDrew = True
         dx = end[0]-start[0]
         dy = end[1]-start[1]
         distance = max(abs(dx), abs(dy))
         for i in range(distance):
             x = int( start[0]+float(i)/distance*dx)
             y = int( start[1]+float(i)/distance*dy)
-            array[int((y*28)/width)][int((x*28)/height)]=1
+            global xMin,xMax,yMin,yMax
+            if x<xMin:
+                xMin=x
+            if x>xMax:
+                xMax=x
+            if y<yMin:
+                yMin=y
+            if y>yMax:
+                yMax=y
+            array[y-1][x]=1
+            array[y+1][x]=1
+            array[y][x-1]=1
+            array[y][x+1]=1    
+            array[y][x]=1
             pygame.draw.circle(srf, color, (x, y), radius)
+
+    def cut_and_scale_down(yMin,yMax,xMin,xMax):
+        global array
+        global edge
+        if (yMax-yMin)>=(xMax-xMin):
+            edge=yMax-yMin
+        else:
+            edge=xMax-xMin
+        frame=56
+        sideFrame=(frame/2)
+        tmp_array=numpy.full(((edge+frame),(edge+frame)),0)
+        tmp_scaled_array=numpy.full((28,28),0)
+        for i in range(int(sideFrame),int(edge+sideFrame)):
+            for j in range(int(sideFrame),int(edge+sideFrame)):
+                tmp_array[i][j]=array[yMin+i-int(sideFrame)][xMin+j-int(sideFrame)]
+        for i in range(0,(edge+frame-1)):
+            for j in range(0,(edge+frame-1)):
+                if tmp_array[i][j]==1:
+                    tmp_scaled_array[int((i*28)/(edge+frame))][int((j*28)/(edge+frame))]=1
+        array=tmp_scaled_array
 
             
 
@@ -135,11 +177,15 @@ if input("Wanna input some stuff? y/n ")=='y':
         pass
 
     pygame.quit()
-    print(array)
-    
-    x_to_predict = numpy.reshape(array, (1,784))
-    predicted = model.predict(x_to_predict,batch_size=1,verbose=1)
-    print("Predicted: ", numpy.argmax(predicted))
+    if(isAnythingDrew):
+        cut_and_scale_down(yMin,yMax,xMin,xMax)
 
+        print(array)
+        
+        x_to_predict = numpy.reshape(array, (1,784))
+        predicted = model.predict(x_to_predict,batch_size=1,verbose=1)
+        print("Predicted: ", numpy.argmax(predicted))
+    else:
+        print("You haven't drew anything :c")
 
 
