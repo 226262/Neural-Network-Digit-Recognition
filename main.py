@@ -26,46 +26,58 @@ num_pixels = X_train.shape[1] * X_train.shape[2]
 X_train = X_train.reshape(X_train.shape[0], num_pixels).astype('float32')
 X_test = X_test.reshape(X_test.shape[0], num_pixels).astype('float32')
 
-# normalize inputs from 0-255 to 0-1
-X_train = X_train / 255
-X_test = X_test / 255
-
-# one hot encode outputs
-y_train = np_utils.to_categorical(y_train)
-y_test = np_utils.to_categorical(y_test)
-num_classes = y_test.shape[1]
 
 #writing a circle of pixels to the array according to middle coordinates of mouse position
 def write_rad(x,y,radius):
     global array
+    global width
     if radius>0:
-        j=0
-        for x in range(x-radius,x+radius+1):
-            if j<=radius:
-                array[x][y+j]=1
-                array[x][y-j]=1
-                j=j+1
-            if j>radius:
-                j=j-1
-                array[x][y+j]
+        if (x-radius)>0 and (x+radius)<width and (y-radius)>0 and (y+radius)<width:
+            j=0
+            for x in range(x-radius,x+radius+1):
+                if j<=radius:
+                    array[x][y+j]=1
+                    array[x][y-j]=1
+                    j=j+1
+                if j>radius:
+                    j=j-1
+                    array[x][y+j]
         write_rad(x,y,radius-1)
 
-# define baseline model
-def baseline_model():
-    # create model
-    model = Sequential() 
-    model.add(Dense(num_pixels, input_dim=num_pixels, kernel_initializer='normal', activation='relu')) #hidden
-    model.add(Dense(400,  activation='relu'))
-    model.add(Dense(num_classes, kernel_initializer='normal', activation='sigmoid'))
-    # Compile model
-    model.compile(loss='categorical_crossentropy', optimizer='adagrad', metrics=['accuracy'])
-    return model
-
-# build the model
-
-model = baseline_model()
 
 if input("Wanna train model? y/n ")=='y':
+        # normalize inputs from 0-255 to 0-1
+    for i in range(0,60000):
+        for j in range(0,28*28):
+                if X_train[i][j]>0:
+                    X_train[i][j]=1
+    for i in range(0,10000):
+        for j in range(0,28*28):
+            if X_test[i][j]>0:
+                X_test[i][j]=1
+    print(X_test[0])
+    # X_test = X_test / 255
+    # one hot encode outputs
+    y_train = np_utils.to_categorical(y_train)
+    y_test = np_utils.to_categorical(y_test)
+    num_classes = y_test.shape[1]
+
+        # define baseline model
+    def baseline_model():
+        # create model
+        model = Sequential() 
+        model.add(Dense(num_pixels, input_dim=num_pixels, kernel_initializer='normal', activation='relu')) #hidden
+        model.add(Dense(400,  activation='relu'))
+        model.add(Dense(num_classes, kernel_initializer='normal', activation='sigmoid'))
+        # Compile model
+        model.compile(loss='categorical_crossentropy', optimizer='adagrad', metrics=['accuracy'])
+        return model
+
+    # build the model
+
+    model = baseline_model()
+
+
     
     model.fit(X_train, y_train, validation_data=(X_test, y_test), epochs=4, batch_size=200, verbose=1)
     
@@ -101,7 +113,7 @@ if input("Wanna test model? y/n ") =='y':
     print("Baseline Error: %.2f%%" % (100-scores[1]*100))    
 
 #space for insertion of numpy array from user:
-if input("Wanna input some stuff? y/n ")=='y':
+while input("Wanna input some stuff? y/n ")=='y':
 
     width = 300
     height = 300
@@ -150,9 +162,9 @@ if input("Wanna input some stuff? y/n ")=='y':
         sideFrame=(frame/2)
         tmp_array=numpy.full(((edge+frame),(edge+frame)),0)
         tmp_scaled_array=numpy.full((28,28),0)
-        for i in range(int(sideFrame),int(edge+sideFrame)):
-            for j in range(int(sideFrame),int(edge+sideFrame)):
-                tmp_array[i][j]=array[yMin+i-int(sideFrame)][xMin+j-int(sideFrame)]
+        for j in range(int((edge/2)-((xMax-xMin)/2)),int((edge/2)+((xMax-xMin)/2))):
+            for i in range(int(sideFrame),int(edge+sideFrame)):
+                tmp_array[i][j]=array[yMin+i-int(sideFrame)][xMin+j-int((edge/2)-((xMax-xMin)/2))]
         for i in range(0,(edge+frame-1)):
             for j in range(0,(edge+frame-1)):
                 if tmp_array[i][j]==1:
