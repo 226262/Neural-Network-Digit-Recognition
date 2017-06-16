@@ -42,4 +42,5 @@ if input("Wanna test model? y/N ") =='y':
 while input("Wanna input some stuff? Y/n ")!='n':
 
     NN.predict(plotter.input_stuff())
+    plotter.flush()
     
