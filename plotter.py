@@ -117,14 +117,14 @@ class Plotter:
             print("You haven't drew anything :c")
             exit()
 
-        def flush(self):
-            array=numpy.full((width,height),0)
-            self.xMin=width
-            self.xMax=0
-            self.yMin=height
-            self.yMax=0
-            self.edge=0
-            self.isAnythingDrew = False
+    def flush(self):
+        self.array=numpy.full((self.width,self.height),0)
+        self.xMin=self.width
+        self.xMax=0
+        self.yMin=self.height
+        self.yMax=0
+        self.edge=0
+        self.isAnythingDrew = False
 
 
    
