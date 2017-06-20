@@ -1,0 +1,107 @@
+\documentclass{beamer}
+
+\usepackage{polski}
+\usepackage[utf8]{inputenc}
+\usepackage{graphicx}
+\graphicspath{ {/} }
+\usepackage{listings}
+
+\usetheme{CambridgeUS}
+\usecolortheme{beaver}
+\setbeamertemplate{section in toc}[sections numbered]
+\setbeamertemplate{subsection in toc}[subsections numbered]
+\setbeamercolor{section in toc}{fg=black}
+\setbeamercolor{subsection in toc}{fg=gray}
+\setbeamertemplate{enumerate item}[triangle]
+
+\AtBeginSection[]
+{
+\begin{frame}<beamer>
+% \frametitle{Spis treści}
+\tableofcontents[currentsection]
+\end{frame}
+}
+
+
+\title[Sieć neuronowa- rozpoznawanie cyfr]
+{Algorytm sieci neuronowej}
+\subtitle{Rozpoznawanie cyfr}
+\author[Piotr Klimkowski  \and Rafał Borysionek]
+{Piotr Klimkowski \and Rafał Borysionek}
+\institute[]
+{Wydział Elektroniki \\
+Politechnika Wrocławska
+}
+\subject{Projektowanie Algorytmów i Metody Sztucznej Inteligencji}
+
+\begin{document}
+
+
+\begin{frame}
+  \titlepage
+\end{frame}
+
+
+\begin{frame}
+  \frametitle{Spis treści}
+  \tableofcontents
+\end{frame}
+
+\section{Teoria Sieci Neuronowych}
+\frame{
+  Czym jest sieć neuronowa:
+  \begin{enumerate}
+  \item ds
+  \item dsds
+    
+  \end{enumerate}
+}
+
+\subsection{Architektura sieci}
+\subsection{Baza danych MNIST}
+\subsection{Metoda Gradientu}
+\subsection{Backpropagation}
+\subsection{Dropout}
+\subsection{Konwolucje}
+
+\section{Wyniki doświadczalne}
+\subsection{Wpływ ilości ukrytych warstw na błąd}
+\subsection{Wpływ ilości cykli uczenia na błąd}
+
+\section{Prezentacja programu}
+
+\section{Bibliografia}
+\begin{frame}[allowframebreaks]
+
+ \frametitle{Bibliografia}
+ \begin{thebibliography}{10}
+ % \beamertemplatebookbibitems
+ %powyzej wstawiamy ikonke ksiazki
+ % \bibitem{Autor1990}
+ % X.~Autor.
+ % \newblock {\em Ei}.
+ % \newblock Klein-Verlag, 1990.
+ \beamertemplatearticlebibitems
+ %powyzej wstawiamy ikonke ksiazki
+ \bibitem{MNIST}
+ Yann LeCun, Corinna Cortes, Christopher J.C. Burges.
+ \newblock THE MNIST DATABASE of handwritten digits.
+ \newblock {\em http://yann.lecun.com/exdb/mnist/}
+ \beamertemplatearticlebibitems
+ \bibitem{Github}
+   Stephen Welch.
+   \newblock Neural-Networks-Demystified.
+   \newblock {\em https://github.com/stephencwelch}
+   \beamertemplatearticlebibitems
+ \bibitem{Keras}
+   Keras Documentation
+   \newblock Keras: The Python Deep Learning library.
+   \newblock{\em https://keras.io/}
+ 
+ \end{thebibliography}
+ \end{frame}
+
+
+
+
+\end{document}

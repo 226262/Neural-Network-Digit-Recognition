@@ -1,4 +1,9 @@
-
+*.toc
+*.out
+*.snm
+*.aux
+*.nav
+*.log
 .#*
 */obj/*.o
 */src/*.cpp#

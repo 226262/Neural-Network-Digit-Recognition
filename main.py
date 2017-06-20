@@ -17,7 +17,7 @@ plotter=Plotter()
 NN=Neural_Network()
 
 if input("Wanna train model? y/N ") =='y':
-    layers = [400]
+    layers = [800, 800]
     NN.initialize(layers)
     NN.train()
    
@@ -40,7 +40,7 @@ if input("Wanna test model? y/N ") =='y':
 
 #space for insertion of numpy array from user:
 while input("Wanna input some stuff? Y/n ")!='n':
-
+    
     NN.predict(plotter.input_stuff())
     plotter.flush()
     

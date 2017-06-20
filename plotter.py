@@ -50,7 +50,8 @@ class Plotter:
                 if tmp_array[i][j]==1:
                     tmp_scaled_array[int((i*28)/(edge+frame))][int((j*28)/(edge+frame))]=1
         self.array=tmp_scaled_array
-
+        print(self.array)
+        
     def input_stuff(self):
 
          
@@ -80,7 +81,7 @@ class Plotter:
                 if y>self.yMax:
                     self.yMax=y
 
-                self.write_rad(y,x,4)
+                self.write_rad(y,x,2)
                 pygame.draw.circle(srf, color, (x, y), radius)
 
                 

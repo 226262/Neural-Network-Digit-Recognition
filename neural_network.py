@@ -23,9 +23,9 @@ class Neural_Network :
         for number in hidden_layers :
             print("adding layer: ",number)
             self.model.add(Dense(number,  activation='relu'))
-
+            self.model.add(Dropout(0.5))
         self.model.add(Dense(self.mnist.num_classes, kernel_initializer='normal', activation='sigmoid'))
-        self.model.compile(loss='categorical_crossentropy', optimizer='adagrad', metrics=['accuracy'])
+        self.model.compile(loss='categorical_crossentropy', optimizer='adam', metrics=['accuracy'])
         
     def save_model(self):
         model_json = self.model.to_json()
@@ -44,12 +44,12 @@ class Neural_Network :
         loaded_model = model_from_json(loaded_model_json)
         # load weights into new model
         loaded_model.load_weights("model.h5")
-        loaded_model.compile(loss='categorical_crossentropy', optimizer='adagrad', metrics=['accuracy'])
+        loaded_model.compile(loss='categorical_crossentropy', optimizer='adam', metrics=['accuracy'])
         self.model=loaded_model
         print("Loaded model from disk")
         
     def train (self):
-        self.model.fit(self.mnist.X_train, self.mnist.y_train, validation_data=(self.mnist.X_test, self.mnist.y_test), epochs=3, batch_size=200, verbose=1)
+        self.model.fit(self.mnist.X_train, self.mnist.y_train, validation_data=(self.mnist.X_test, self.mnist.y_test), epochs=5, batch_size=100, verbose=1)
         
     def test(self):
         scores = self.model.evaluate(self.mnist.X_test, self.mnist.y_test, verbose=1)
@@ -60,4 +60,4 @@ class Neural_Network :
         x_to_predict = numpy.reshape(arrayek, (1,784))
         predicted = self.model.predict(x_to_predict,batch_size=1,verbose=1)
         print("Predicted: ", numpy.argmax(predicted))
-        
+        print(predicted)
