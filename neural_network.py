@@ -24,7 +24,7 @@ class Neural_Network :
             print("adding layer: ",number)
             self.model.add(Dense(number,  activation='relu'))
             self.model.add(Dropout(0.5))
-        self.model.add(Dense(self.mnist.num_classes, kernel_initializer='normal', activation='sigmoid'))
+        self.model.add(Dense(self.mnist.num_classes, kernel_initializer='normal', activation='relu'))
         self.model.compile(loss='categorical_crossentropy', optimizer='adam', metrics=['accuracy'])
         
     def save_model(self):
@@ -48,8 +48,8 @@ class Neural_Network :
         self.model=loaded_model
         print("Loaded model from disk")
         
-    def train (self):
-        self.model.fit(self.mnist.X_train, self.mnist.y_train, validation_data=(self.mnist.X_test, self.mnist.y_test), epochs=5, batch_size=100, verbose=1)
+    def train (self,liczbaepoch):
+        self.model.fit(self.mnist.X_train, self.mnist.y_train, validation_data=(self.mnist.X_test, self.mnist.y_test), epochs=liczbaepoch, batch_size=100, verbose=2)
         
     def test(self):
         scores = self.model.evaluate(self.mnist.X_test, self.mnist.y_test, verbose=1)

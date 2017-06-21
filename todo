@@ -5,3 +5,8 @@ Bardziej na obróbce się skupić i back propagation
  Zczytywanie z palca i do sieci
  Obróbka uczenia się i back propagacja (wykresy)
  Zbadać od ilości warstw
+
+
+ -ilość cykli uczenia;           --Jest
+ - dropout z oerfittingiem;		
+ - wpływ warstw na błąd;         --robię
