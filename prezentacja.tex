@@ -14,6 +14,8 @@
 \setbeamercolor{subsection in toc}{fg=gray}
 \setbeamertemplate{enumerate item}[triangle]
 
+
+
 \AtBeginSection[]
 {
 \begin{frame}<beamer>
@@ -48,26 +50,67 @@ Politechnika Wrocławska
 \end{frame}
 
 \section{Teoria Sieci Neuronowych}
-\frame{
-  Czym jest sieć neuronowa:
-  \begin{enumerate}
-  \item ds
-  \item dsds
-    
-  \end{enumerate}
-}
 
 \subsection{Architektura sieci}
 \subsection{Baza danych MNIST}
 \subsection{Metoda Gradientu}
 \subsection{Backpropagation}
-\subsection{Dropout}
-\subsection{Konwolucje}
+\subsection{Overfitting}
+\frame{
+  \frametitle{Co to jest Overfitting?}
+  \begin{figure}
+    \includegraphics[scale=0.45]{coto.png}
+  \end{figure}    
+  }
 
+
+\frame{
+  \frametitle{Kiedy on występuje?}
+  \begin{figure}
+    \includegraphics[scale=2]{kiedy.png}
+  \end{figure}  
+}
+\subsection{Dropout}
+\frame{
+  \frametitle{Dropout jako sposób na overfitting}
+  \begin{figure}
+    \includegraphics[scale=0.45]{drop.png}
+  \end{figure}
+}
+\subsection{Konwolucje}
 \section{Wyniki doświadczalne}
 \subsection{Wpływ ilości ukrytych warstw na błąd}
-\subsection{Wpływ ilości cykli uczenia na błąd}
+\frame{
+  \begin{table}
+    \begin{tabular}{|l|r|}
+      \hline
+      \textbf{Warstwy} & \textbf{Błąd [\%]} \\
+      \hline
 
+800,400				&				2,32  \\
+400,800				&				2,40\\
+800				&    			2,41\\
+400,400				&				2,42       \\
+500,150				&				2,52\\
+800,800		&	2,53\\
+400,200,100		&				2,53\\
+800,400,400		&				2,61\\
+400,400,400			&				2,62\\
+800,400,100		&				2,94\\
+100,100,100			&				3,23\\
+
+      \hline
+      
+    \end{tabular}
+  \end{table}
+    
+}
+\subsection{Wpływ ilości cykli uczenia na błąd}
+\frame{
+  \begin{figure}
+    \includegraphics[scale=0.75]{wykres.png}
+  \end{figure}
+}
 \section{Prezentacja programu}
 
 \section{Bibliografia}
