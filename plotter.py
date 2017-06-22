@@ -50,7 +50,7 @@ class Plotter:
                 if tmp_array[i][j]==1:
                     tmp_scaled_array[int((i*28)/(edge+frame))][int((j*28)/(edge+frame))]=1
         self.array=tmp_scaled_array
-        print(self.array)
+        # print(self.array)
         
     def input_stuff(self):
 

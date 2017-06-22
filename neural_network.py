@@ -58,6 +58,6 @@ class Neural_Network :
     
     def predict(self,arrayek):
         x_to_predict = numpy.reshape(arrayek, (1,784))
-        predicted = self.model.predict(x_to_predict,batch_size=1,verbose=1)
+        predicted = self.model.predict(x_to_predict,batch_size=1,verbose=0)
         print("Predicted: ", numpy.argmax(predicted))
-        print(predicted)
+        # print(predicted)

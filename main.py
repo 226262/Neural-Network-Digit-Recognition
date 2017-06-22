@@ -19,7 +19,7 @@ NN=Neural_Network()
 if input("Wanna train model? y/N ") =='y':
     layers = [800,400]
     NN.initialize(layers)
-    NN.train(20)
+    NN.train(10)
    
     if input("Wanna save model? Y/n ") !='n' :
         NN.save_model()
